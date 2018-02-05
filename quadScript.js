@@ -30,9 +30,12 @@ function results() {
   // finding vertext and displaying symline and yint results
   vX = -(b*1)/(2*a);
   vY = a*Math.pow(vX,2)+b*vX+c*1;
+  cp=2*vX;
   $("#vertex").text("Vertex is at (" + vX+","+vY+")");
   $("#y-int").text("Y intercept is at (0,"+ c+")");
-  //$("#corres.point").text("Corresponding point is at ("+vX*2)")";
+  context.beginPath();
+  $("#corres-point").text("Corresponding point is at ("+cp+","+c+")");
+  $("#symmetry-line").text("Symmetry line is at x= "+ vX);
   
 }  // close results()
 function graphpaper() {
@@ -96,4 +99,13 @@ function graphQuad () {
     context.lineTo(w/2+nx*k,h/2-ny*k);
     context.stroke();
   } 
+}
+
+function zoomIn(){
+  k=k+2;
+  init();
+}
+function zoomOut(){
+  k=k-2;
+  init();
 }
