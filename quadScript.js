@@ -16,27 +16,54 @@ function QF() {
   b = $("#linB").val();
   c = $("#constant").val();
   x1=(-b+Math.sqrt(b**2-4*a*c))/(2*a)
-  x1=Math.round(x1 * 10000) / 10000;
+  x1=Math.round(x1 * 100) / 100;
   x2=(-b-Math.sqrt(b**2-4*a*c))/(2*a)
-  x2=Math.round(x2 * 10000) / 10000;
+  x2=Math.round(x2 * 100) / 100;
   $("#solution1").text("X intercept is at "+x1);
   $("#solution2").text("X intercept is at "+x2);
   console.log(a,b,c);
-  results();
   graphQuad();
+  results();
+  context.beginPath();
+  context.arc(w/2+x1*k,h/2,4,0,6.28);
+  context.fill();
+  context.beginPath();
+  context.arc(w/2+x2*k,h/2,4,0,6.28);
+  context.fill();
 }  // close QF
 
 function results() {
   // finding vertext and displaying symline and yint results
   vX = -(b*1)/(2*a);
   vY = a*Math.pow(vX,2)+b*vX+c*1;
+  vX=vX.toFixed(2);
+  vY=vY.toFixed(2);
   cp=2*vX;
   $("#vertex").text("Vertex is at (" + vX+","+vY+")");
+  context.fillStyle="darkblue";
+  context.beginPath();
+  context.arc(w/2+vX*k,h/2-vY*k,4,0,6.28);
+  context.fill();
   $("#y-int").text("Y intercept is at (0,"+ c+")");
   context.beginPath();
+  context.arc(w/2,h/2-c*k,4,0,6.28);
+  context.fill();
   $("#corres-point").text("Corresponding point is at ("+cp+","+c+")");
+  context.beginPath();
+  context.arc(w/2+cp*k,h/2-c*k,4,0,6.28);
+  context.fill();
   $("#symmetry-line").text("Symmetry line is at x= "+ vX);
   
+context.setLineDash([20,10]);
+context.strokeStyle="darkblue"
+context.lineWidth="2"
+context.beginPath();
+context.moveTo(w/2+vX*k,5);
+context.lineTo(w/2+vX*k, h+5)
+context.stroke();
+context.setLineDash([0]);
+
+
 }  // close results()
 function graphpaper() {
   // the x and y axis drawn
@@ -52,7 +79,7 @@ context.stroke();
 
 // thin line with a 50% opacity using rgba() 
   context.lineWidth=1;
-  context.strokeStyle="rgba(0,0,255)";
+  context.strokeStyle="rgba(0,100,100,.5)";
 
   //using the direct variation constant, k
   //  here are the vertical and horizontal lines
@@ -104,8 +131,14 @@ function graphQuad () {
 function zoomIn(){
   k=k+2;
   init();
+  graphQuad();
+  results();
+  QF();
 }
 function zoomOut(){
   k=k-2;
   init();
+  graphQuad();
+  results();
+  QF();
 }

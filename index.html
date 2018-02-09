@@ -58,7 +58,7 @@
       display: block;
       border-style: dotted;
       border-width: 5px;
-      background-color: lightblue;
+      background-color: white;
       margin-top: 10px;
     }
   </style>
@@ -89,13 +89,13 @@
   <!--    our main body of divs that are responsive (go from in-line to block when screen is small) -->
   <div class="container-fluid">    
     <div class="row content">
-      <div class="col-sm-2 sidenav">
+      <div class="col-sm-3 sidenav">
         <div class="coeff">
           <p class="formInfo">Coefficients go here :<br>
 
             a = <input size="5" type="text" id="quadA" value="1"> <br>
-            b = <input size="5" type="text" id="linB" value="0"> <br>
-            c = <input size="5" type="text" id="constant" value="0"> <br>
+            b = <input size="5" type="text" id="linB" value="2"> <br>
+            c = <input size="5" type="text" id="constant" value="-3"> <br>
 
             <button class="btn" onclick="QF()" id="submitbutton">Submit Values</button>
             <span class="glyphicon glyphicon-plus" onclick="zoomIn()" id=plusbutton></span>
