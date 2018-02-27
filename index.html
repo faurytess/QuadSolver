@@ -45,6 +45,10 @@
     #submitbutton{
       margin-top: 10px;
     }
+
+    #clearbutton{
+      margin-top: 10px;
+    }
     #plusbutton{
       border-color:black;
       border-width:black;
@@ -100,6 +104,8 @@
             <button class="btn" onclick="QF()" id="submitbutton">Submit Values</button>
             <span class="glyphicon glyphicon-plus" onclick="zoomIn()" id=plusbutton></span>
             <span class="glyphicon glyphicon-minus" onclick="zoomOut()" id=plusbutton></span>
+            <button class="btn btn-primary btn-med" onclick="init()" id="clearbutton">Clear Grid</button>
+
             
                   
           
@@ -110,6 +116,7 @@
         <p id="corres-point">Corresponding point is at</p>
         <p id="vertex">Vertex is at</p>
         <p id="symmetry-line">Symmetry line is at x =</p>
+        <p id="point">Point on the curve is at </p>
       </div>
         </div>
       </div>

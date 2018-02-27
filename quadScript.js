@@ -7,6 +7,10 @@ function init() {
   w = canvas.width = 600;
   h = canvas.height = 400;
   console.log('canvas is loaded into context',w);
+  canvasOffset = canvas.getBoundingClientRect();
+  offsetX = Math.round(canvasOffset.left),
+  offsetY = Math.round(canvasOffset.top); 
+  canvas.addEventListener("mousemove", doMouseMove, false);
   graphpaper();
 }  // close init
 
@@ -15,13 +19,19 @@ function QF() {
   a = $("#quadA").val();
   b = $("#linB").val();
   c = $("#constant").val();
-  x1=(-b+Math.sqrt(b**2-4*a*c))/(2*a)
+  d=b**2-4*a*c;
+  if (d<0){
+  	$("#solution1").text("No x-intercepts");
+    $("#solution2").text("No x-intercepts");
+  }
+  else{
+  x1=(-b+Math.sqrt(b**2-4*a*c))/(2*a);
   x1=Math.round(x1 * 100) / 100;
-  x2=(-b-Math.sqrt(b**2-4*a*c))/(2*a)
+  x2=(-b-Math.sqrt(b**2-4*a*c))/(2*a);
   x2=Math.round(x2 * 100) / 100;
   $("#solution1").text("X intercept is at "+x1);
   $("#solution2").text("X intercept is at "+x2);
-  console.log(a,b,c);
+  }
   graphQuad();
   results();
   context.beginPath();
@@ -53,7 +63,6 @@ function results() {
   context.arc(w/2+cp*k,h/2-c*k,4,0,6.28);
   context.fill();
   $("#symmetry-line").text("Symmetry line is at x= "+ vX);
-  
 context.setLineDash([20,10]);
 context.strokeStyle="darkblue"
 context.lineWidth="2"
@@ -130,15 +139,34 @@ function graphQuad () {
 
 function zoomIn(){
   k=k+2;
-  init();
-  graphQuad();
-  results();
-  QF();
+  resetCanvas();
 }
 function zoomOut(){
   k=k-2;
+  if (k<10){k=10}
+  resetCanvas();
+}
+
+function resetCanvas(){
   init();
   graphQuad();
   results();
   QF();
 }
+
+function doMouseMove(event) {
+    // always know where ther mouse is located
+    resetCanvas();
+    context.fillStyle="pink"
+  mouseX = event.clientX-offsetX;
+  mouseY = event.clientY-offsetY;
+  pointX = (mouseX-w/2)/k;
+  pointY = a*Math.pow(pointX,2)+b*pointX+c*1;
+  pointX =  pointX.toFixed(2);
+  pointY =  pointY.toFixed(2);
+  //console.log(mouseX,mouseY, pointX, pointY, offsetY, offsetX);
+  context.beginPath();
+  context.arc(mouseX, h/2-pointY*k,5,0,2*Math.PI);
+  context.fill(); 
+  $("#point").text("Point on the curve: ("+pointX+","+pointY+")");
+}  // end doMouseMove
